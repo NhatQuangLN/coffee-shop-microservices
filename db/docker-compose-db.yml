@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  service-user:
+    image: postgres:latest
+    container_name: service-user-db
+    environment:
+      POSTGRES_DB: service-user
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+    volumes:
+      - service-user-data:/var/lib/postgresql/data
+    networks:
+      - service-network
+
+  service-product:
+    image: postgres:latest
+    container_name: service-product-db
+    environment:
+      POSTGRES_DB: service-product
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5433:5432"
+    volumes:
+      - service-product-data:/var/lib/postgresql/data
+    networks:
+      - service-network
+
+  service-counter:
+    image: postgres:latest
+    container_name: service-counter-db
+    environment:
+      POSTGRES_DB: service-counter
+      POSTGRES_USER: sa
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5434:5432"
+    volumes:
+      - service-counter-data:/var/lib/postgresql/data
+    networks:
+      - service-network
+
+volumes:
+  service-user-data:
+  service-product-data:
+  service-counter-data:
+
+networks:
+  service-network:
+    driver: bridge
